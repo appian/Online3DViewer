@@ -221,7 +221,6 @@ export class Website
         this.InitDragAndDrop ();
         this.InitSidebar ();
         this.InitNavigator ();
-        this.InitCookieConsent ();
 
         this.viewer.SetMouseClickHandler (this.OnModelClicked.bind (this));
         this.viewer.SetMouseMoveHandler (this.OnModelMouseMoved.bind (this));
@@ -955,22 +954,5 @@ export class Website
         AddSvgIconElement (buttonLink, icon, 'header_button');
         this.parameters.headerButtonsDiv.appendChild (buttonLink);
         return buttonLink;
-    }
-
-    InitCookieConsent ()
-    {
-        let accepted = CookieGetBoolVal ('ov_cookie_consent', false);
-        if (accepted) {
-            return;
-        }
-
-        let text = Loc ('This website uses cookies to offer you better user experience. See the details at the <a target="_blank" href="info/cookies.html">Cookies Policy</a> page.');
-        let popupDiv = AddDiv (document.body, 'ov_bottom_floating_panel');
-        AddDiv (popupDiv, 'ov_floating_panel_text', text);
-        let acceptButton = AddDiv (popupDiv, 'ov_button ov_floating_panel_button', Loc ('Accept'));
-        acceptButton.addEventListener ('click', () => {
-            CookieSetBoolVal ('ov_cookie_consent', true);
-            popupDiv.remove ();
-        });
     }
 }
